@@ -202,6 +202,9 @@
 		<hbox align="center">
 			<checkbox id="PMDprogress" label="&PMDlabel9;" /> 
 		</hbox>
+		<hbox align="center">
+		<menulist id="OutputPrinter"/>
+		</hbox>
 		</vbox>
 	</tabpanel>
 	

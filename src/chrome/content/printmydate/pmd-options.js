@@ -170,6 +170,45 @@ function initPMDpanel() {
 		gheaderList.add({ headerName: lab, headerToken: u[i], id: i + 1 });
 	}
 	gheaderList.controller.selectRowByDataId('1');
+
+	setPrinterList();
+}
+
+function setPrinterList() {
+	var outputPrinter = prefs.getCharPref("print_printer");
+	var printerListMenu = document.getElementById("OutputPrinter");
+	var selindex = 0;
+	var popup = document.createXULElement("menupopup");
+
+	var PSSVC2 = Cc["@mozilla.org/gfx/printerenumerator;1"]
+	.getService(Ci.nsIPrinterEnumerator);
+
+	Services.console.logStringMessage("printingtools: printerD: " + PSSVC2.defaultPrinterName);
+	var pe = PSSVC2.printerNameList;
+	var printers = [];
+	var i = 0;
+	while(pe.hasMore()) {
+		let printerName = pe.getNext();
+		var menuitem = document.createXULElement("menuitem");
+
+		Services.console.logStringMessage("printingtools: printerName: " + printerName);
+		printers.push(printerName);
+		menuitem.setAttribute("value", printerName);
+		menuitem.setAttribute("label", printerName);
+		popup.appendChild(menuitem);
+		if ( printerName === outputPrinter) {
+			selindex = i;
+		}
+		i++;
+	}
+
+	var PSSVC = Cc["@mozilla.org/gfx/printsettings-service;1"]
+		.getService(Ci.nsIPrintSettingsService);
+
+	
+	printerListMenu.appendChild(popup);
+	printerListMenu.selectedIndex = selindex;
+
 }
 
 function initPMDabpanel() {
@@ -334,6 +373,9 @@ function savePMDabprefs(fullpanel) {
 	prefs.setBoolPref("extensions.printingtoolsng.addressbook.cut_notes", document.getElementById("PMDcutnotes").checked);
 	prefs.setBoolPref("extensions.printingtoolsng.addressbook.add_ab_name", document.getElementById("PMDaddname").checked);
 	prefs.setBoolPref("extensions.printingtoolsng.addressbook.print_multiple_cards", document.getElementById("multipleCards").checked);
+	
+	prefs.setCharPref("print_printer", document.getElementById("OutputPrinter"));
+
 	if (document.getElementById("PMDabsmallfont") && opener.printingtools) {
 		var isContact = opener.printingtools.isContact;
 		opener.close();
