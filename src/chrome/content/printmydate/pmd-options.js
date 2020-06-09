@@ -183,7 +183,7 @@ function setPrinterList() {
 	var PSSVC2 = Cc["@mozilla.org/gfx/printerenumerator;1"]
 	.getService(Ci.nsIPrinterEnumerator);
 
-	Services.console.logStringMessage("printingtools: printerD: " + PSSVC2.defaultPrinterName);
+	Services.console.logStringMessage("printingtools: print_printer " + outputPrinter);
 	var pe = PSSVC2.printerNameList;
 	var printers = [];
 	var i = 0;
@@ -198,6 +198,7 @@ function setPrinterList() {
 		popup.appendChild(menuitem);
 		if ( printerName === outputPrinter) {
 			selindex = i;
+			Services.console.logStringMessage("printingtools: selected: " + outputPrinter);
 		}
 		i++;
 	}
@@ -208,7 +209,7 @@ function setPrinterList() {
 	
 	printerListMenu.appendChild(popup);
 	printerListMenu.selectedIndex = selindex;
-
+	Services.console.logStringMessage("printingtools: printerName index: " + selindex);
 }
 
 function initPMDabpanel() {
@@ -289,6 +290,9 @@ function getHeaderLabel(string) {
 function savePMDprefs() {
 	if (fullPanel)
 		savePMDabprefs(true);
+
+	prefs.setCharPref("print_printer", document.getElementById("OutputPrinter").value);
+	Services.console.logStringMessage("printingtools: print_printer " + document.getElementById("OutputPrinter").value);	
 
 	var max_pre_len;
 	if (document.getElementById("PREtruncate").checked)
@@ -374,7 +378,6 @@ function savePMDabprefs(fullpanel) {
 	prefs.setBoolPref("extensions.printingtoolsng.addressbook.add_ab_name", document.getElementById("PMDaddname").checked);
 	prefs.setBoolPref("extensions.printingtoolsng.addressbook.print_multiple_cards", document.getElementById("multipleCards").checked);
 	
-	prefs.setCharPref("print_printer", document.getElementById("OutputPrinter"));
 
 	if (document.getElementById("PMDabsmallfont") && opener.printingtools) {
 		var isContact = opener.printingtools.isContact;
