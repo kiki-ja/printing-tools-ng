@@ -54,3 +54,4 @@
 <!ENTITY resizeImgs.label "Billederne er for store, tilpas deres størrelse">
 <!ENTITY addRdate.label "Add received date">
 
+<!ENTITY defaultPrinter "Standardprinter">

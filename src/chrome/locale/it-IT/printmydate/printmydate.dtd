@@ -53,3 +53,4 @@
 <!ENTITY resizeImgs.label "Ridimensiona le immagini troppo grandi">
 <!ENTITY addRdate.label "Aggiungi il campo 'Ricevuto'">
 
+<!ENTITY defaultPrinter "Stampante predefinita">

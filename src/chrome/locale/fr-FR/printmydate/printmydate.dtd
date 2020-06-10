@@ -54,5 +54,4 @@
 <!ENTITY resizeImgs.label "Resize the images too large">
 <!ENTITY addRdate.label "Add received date">
 
-
-
+<!ENTITY defaultPrinter "Imprimante par défaut">

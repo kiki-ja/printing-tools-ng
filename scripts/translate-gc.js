@@ -16,14 +16,14 @@ const translate = new Translate({ projectId, key });
 var translationArray = [
 	// { key: "dateFormatRefTooltipText", text: "Date Format Reference" },
 	// { key: "extFilenameFormatRefTooltipText", text: "Extended Filename Format Reference" },
-	{ key: "Received", text: "Received" },
+	{ key: "defaultPrinter", text: "Default Printer" },
 ]
 
 // const localeDir = "../src/chrome/locale";
 const localeDir = "./src/chrome/locale";
 // const localeDir = "./locale";
-// const localeFile = "mboximport/mboximport.dtd";
-const localeFile = "mboximport/mboximport.properties";
+const localeFile = "printmydate/printmydate.dtd";
+// const localeFile = "mboximport/mboximport.properties";
 const referenceLocaleId = "en";
 
 
@@ -236,8 +236,8 @@ async function translateAllLocales(sourceArray, locales, format) {
 		// continue;
 
 		let lt = stringArray.map((s, i) => {
-			// return `<!ENTITY ${translationArray[i].key} "${s}">`;
-			return `${translationArray[i].key}=${s}`;
+			return `<!ENTITY ${translationArray[i].key} "${s}">`;
+			// return `${translationArray[i].key}=${s}`;
 		});
 		lt = lt.join('\n');
 
@@ -340,8 +340,8 @@ async function translateAll() {
 	console.debug('Stop ' + (st - s) / 1000);
 }
 
-// const localeFolders = _getAllFilesOrFolders(localeDir, true);
-// console.debug(localeFolders);
+const localeFolders = _getAllFilesOrFolders(localeDir, true);
+console.debug(localeFolders);
 
 function t() {
 	let tb_locale = 'hu';
@@ -369,6 +369,6 @@ function t() {
 }
 
 // t();
-translateHelpPage();
+// translateHelpPage();
 // translatePage();
-// translateAll();
+translateAll();
